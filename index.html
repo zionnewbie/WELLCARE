@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Find and locate welfare homes, report missing individuals, and connect with welfare services in your community."
+    />
+    <title>WelfareCare - Welfare Homes Locator & Reporting System</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="main-nav">
+        <div class="logo">WellCare</div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="#home" aria-current="page">Home</a></li>
+          <li><a href="#map">Map</a></li>
+          <li><a href="#report">Report</a></li>
+          <li>
+            <a href="social-worker-login.html" class="social-worker-link"
+              >Social Worker</a
+            >
+          </li>
+          <li><a href="admin.html" class="admin-link">Admin Login</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <h1>Find Welfare Homes & Help Those in Need</h1>
+        <p>
+          Empowering communities through accessible welfare services and support
+          networks
+        </p>
+        <a href="homes.html" class="view-homes-btn" role="button"
+          >View All Welfare Homes</a
+        >
+      </section>
+
+      <section id="map" class="map-section">
+        <h2>Interactive Welfare Homes Map</h2>
+        <div class="map-controls">
+          <div class="search-container">
+            <input
+              type="text"
+              id="map-search"
+              placeholder="Search location..."
+              aria-label="Search location"
+            />
+            <button id="map-search-btn" aria-label="Search">Search</button>
+          </div>
+          <button
+            id="nearby-btn"
+            class="nearby-btn"
+            aria-label="Find nearby locations"
+          >
+            <img
+              src="https://raw.githubusercontent.com/google/material-design-icons/master/png/maps/my_location/materialicons/24dp/1x/baseline_my_location_black_24dp.png"
+              alt=""
+              aria-hidden="true"
+            />
+            Nearby
+          </button>
+        </div>
+        <div
+          id="welfare-map"
+          aria-label="Map showing welfare home locations"
+        ></div>
+      </section>
+
+      <section id="report" class="report-section">
+        <h2>Report Vulnerable Individual</h2>
+        <form id="report-form" class="report-form">
+          <div class="form-group">
+            <label for="workerId">Social Worker ID:</label>
+            <input
+              type="text"
+              id="workerId"
+              name="workerId"
+              required
+              pattern="[A-Za-z0-9]+"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="personName">Individual's Name (if known):</label>
+            <input type="text" id="personName" name="personName" />
+          </div>
+
+          <div class="form-group">
+            <label for="age">Estimated Age:</label>
+            <input type="number" id="age" name="age" min="0" max="120" />
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location Found:</label>
+            <div class="location-input-group">
+              <input type="text" id="location" name="location" required />
+              <button
+                type="button"
+                id="auto-location-btn"
+                class="auto-location-btn"
+                aria-label="Get current location"
+              >
+                <img
+                  src="https://raw.githubusercontent.com/google/material-design-icons/master/png/maps/my_location/materialicons/24dp/1x/baseline_my_location_black_24dp.png"
+                  alt=""
+                  aria-hidden="true"
+                />
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Detailed Description:</label>
+            <textarea
+              id="description"
+              name="description"
+              required
+              minlength="20"
+              rows="4"
+              placeholder="Please provide details about the individual's condition and situation"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="image">Upload Photo:</label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/png, image/jpeg"
+              required
+            />
+            <small class="file-hint"
+              >Accepted formats: JPG, PNG (Max size: 5MB)</small
+            >
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Report</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="script.js"></script>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About WelfareCare</h3>
+          <p>
+            Dedicated to helping communities and supporting those in need
+            through our network of welfare homes and social services.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#map">Find Homes</a></li>
+            <li><a href="#report">Report Case</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section contact-info">
+          <h3>Emergency Contact</h3>
+          <p><strong>24/7 Helpline:</strong> 1800-WELFARE</p>
+          <p><strong>Email:</strong> support@welfarecare.org</p>
+          <div class="footer-bottom">
+            <p>&copy; 2024 WelfareCare. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

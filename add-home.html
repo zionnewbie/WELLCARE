@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Welfare Home</title>
+    <link rel="stylesheet" href="css/homes.css" />
+    <link rel="stylesheet" href="css/add-home.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <a href="admin-homes.html" class="back-btn" title="Back to Admin">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <i class="fas fa-heart"></i>
+        <span>WelfareCare</span>
+      </div>
+    </nav>
+
+    <main>
+      <header class="page-header">
+        <h1>Add New Welfare Home</h1>
+        <p>Add a new welfare home to the directory</p>
+      </header>
+
+      <form id="addHomeForm" class="add-home-form">
+        <div class="form-group">
+          <label for="name">Home Name*</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Enter welfare home name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location*</label>
+          <div class="location-input-group">
+            <input
+              type="text"
+              id="location"
+              name="location"
+              required
+              placeholder="Enter full address"
+            />
+            <button
+              type="button"
+              id="fetchLocationBtn"
+              class="fetch-location-btn"
+            >
+              <i class="fas fa-map-marker-alt"></i> Auto-fetch
+            </button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="latitude">Latitude*</label>
+            <input
+              type="number"
+              id="latitude"
+              name="latitude"
+              step="any"
+              required
+              placeholder="e.g., 13.0827"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="longitude">Longitude*</label>
+            <input
+              type="number"
+              id="longitude"
+              name="longitude"
+              step="any"
+              required
+              placeholder="e.g., 80.2707"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            rows="4"
+            placeholder="Enter description of the welfare home"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="contact">Contact Number</label>
+          <input
+            type="tel"
+            id="contact"
+            name="contact"
+            placeholder="Enter contact number"
+          />
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="button"
+            onclick="window.location.href='homes.html'"
+            class="cancel-btn"
+          >
+            <i class="fas fa-times"></i> Cancel
+          </button>
+          <button type="reset" class="reset-btn">
+            <i class="fas fa-sync-alt"></i>
+          </button>
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-plus"></i> Add Home
+          </button>
+        </div>
+      </form>
+
+      <div id="map" class="map-container"></div>
+    </main>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="add-home.js"></script>
+  </body>
+</html>
