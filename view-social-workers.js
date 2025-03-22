@@ -85,7 +85,6 @@ class SocialWorkersView {
         <td>${this.escapeHtml(worker.workerId)}</td>
         <td>${this.escapeHtml(worker.name)}</td>
         <td>${this.escapeHtml(worker.email)}</td>
-        <td><span class="status-badge ${status.toLowerCase()}">${status}</span></td>
         <td>${lastActive}</td>
         <td>
           <button class="action-btn view-btn" data-id="${worker.workerId}">
@@ -198,6 +197,20 @@ class SocialWorkersView {
       const row = this.tableBody.querySelector(
         `tr[data-worker-id="${worker.workerId}"]`
       );
+      if (row) {
+        const statusCell = row.querySelector("td:nth-child(4)");
+        const status = updatedWorker.isActive ? "Active" : "Inactive";
+        statusCell.innerHTML = `<span class="status-badge ${status.toLowerCase()}">${status}</span>`;
+
+        // Update the toggle button
+        const toggleBtn = row.querySelector(".activate-btn, .deactivate-btn");
+        toggleBtn.className = `action-btn ${
+          updatedWorker.isActive ? "deactivate" : "activate"
+        }-btn`;
+        toggleBtn.innerHTML = `<i class="fas fa-${
+          updatedWorker.isActive ? "user-slash" : "user-check"
+        }"></i>`;
+      }
       if (row) {
         const statusCell = row.querySelector("td:nth-child(4)");
         const status = worker.isActive ? "Active" : "Inactive";
