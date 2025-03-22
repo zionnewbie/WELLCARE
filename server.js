@@ -466,6 +466,28 @@ app.post("/api/admin/login", async (req, res) => {
     res.status(500).json({ error: "Login failed" });
   }
 });
+// Get all social workers endpoint
+app.get("/api/social-workers", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (token !== (process.env.ADMIN_TOKEN || "admin-token-123")) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const mongoWorkers = await SocialWorker.find();
+    const excelWorkers = ExcelService.readFile(SOCIAL_WORKERS_FILE);
+    const uniqueWorkers = [...mongoWorkers, ...excelWorkers].filter(
+      (worker, index, self) =>
+        index === self.findIndex((w) => w.workerId === worker.workerId)
+    );
+
+    res.json(uniqueWorkers);
+  } catch (error) {
+    console.error("⛔Fetch social workers error:", error);
+    res.status(500).json({ error: "Failed to fetch social workers" });
+  }
+});
+
 app.get("/api/homes", async (req, res) => {
   try {
     const mongoHomes = await Home.find();
@@ -797,6 +819,28 @@ app.post("/api/admin/login", async (req, res) => {
   }
 });
 
+// Get all social workers endpoint
+app.get("/api/social-workers", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (token !== (process.env.ADMIN_TOKEN || "admin-token-123")) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const mongoWorkers = await SocialWorker.find();
+    const excelWorkers = ExcelService.readFile(SOCIAL_WORKERS_FILE);
+    const uniqueWorkers = [...mongoWorkers, ...excelWorkers].filter(
+      (worker, index, self) =>
+        index === self.findIndex((w) => w.workerId === worker.workerId)
+    );
+
+    res.json(uniqueWorkers);
+  } catch (error) {
+    console.error("⛔Fetch social workers error:", error);
+    res.status(500).json({ error: "Failed to fetch social workers" });
+  }
+});
+
 app.get("/api/homes", async (req, res) => {
   try {
     const mongoHomes = await Home.find();
@@ -1111,6 +1155,78 @@ app.get("/api/social-workers", async (req, res) => {
   } catch (error) {
     console.error("⛔Fetch social workers error:", error);
     res.status(500).json({ error: "Failed to fetch social workers" });
+  }
+});
+
+// Toggle social worker status endpoint
+app.post("/api/social-worker/:workerId/toggle-status", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (token !== (process.env.ADMIN_TOKEN || "admin-token-123")) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const { workerId } = req.params;
+    const worker = await SocialWorker.findOne({ workerId });
+
+    if (!worker) {
+      return res.status(404).json({ error: "Social worker not found" });
+    }
+
+    // Toggle status
+    worker.status = worker.status === "active" ? "inactive" : "active";
+    await worker.save();
+
+    // Update Excel file
+    const workers = ExcelService.readFile(SOCIAL_WORKERS_FILE);
+    const workerIndex = workers.findIndex((w) => w.workerId === workerId);
+    if (workerIndex !== -1) {
+      workers[workerIndex].status = worker.status;
+      ExcelService.writeFile(SOCIAL_WORKERS_FILE, workers);
+    }
+
+    res.json({
+      workerId: worker.workerId,
+      isActive: worker.status === "active",
+    });
+  } catch (error) {
+    console.error("⛔Toggle status error:", error);
+    res.status(500).json({ error: "Failed to toggle status" });
+  }
+});
+
+// Reset social worker password endpoint
+app.post("/api/social-worker/:workerId/reset-password", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (token !== (process.env.ADMIN_TOKEN || "admin-token-123")) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const { workerId } = req.params;
+    const worker = await SocialWorker.findOne({ workerId });
+
+    if (!worker) {
+      return res.status(404).json({ error: "Social worker not found" });
+    }
+
+    // Generate temporary password
+    const temporaryPassword = Math.random().toString(36).slice(-8);
+    worker.password = temporaryPassword;
+    await worker.save();
+
+    // Update Excel file
+    const workers = ExcelService.readFile(SOCIAL_WORKERS_FILE);
+    const workerIndex = workers.findIndex((w) => w.workerId === workerId);
+    if (workerIndex !== -1) {
+      workers[workerIndex].password = temporaryPassword;
+      ExcelService.writeFile(SOCIAL_WORKERS_FILE, workers);
+    }
+
+    res.json({ temporaryPassword });
+  } catch (error) {
+    console.error("⛔Reset password error:", error);
+    res.status(500).json({ error: "Failed to reset password" });
   }
 });
 
