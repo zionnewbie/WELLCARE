@@ -290,7 +290,7 @@ main {
 }
 
 .home-image {
-  background: linear-gradient(135deg, #4CAF50, #2196F3);
+  background: linear-gradient(135deg, #4caf50, #2196f3);
   padding: 30px;
   text-align: center;
 }
@@ -326,18 +326,22 @@ main {
 }
 
 .view-map {
-  background: #4CAF50;
+  background: #4caf50;
   color: white;
 }
 
 .get-directions {
-  background: #2196F3;
+  background: #2196f3;
   color: white;
 }
 
-.view-map:hover, .get-directions:hover {
-  opacity: 0.9;
-  transform: scale(1.05);
+.view-map:hover,
+.get-directions:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.98;
 }
 
 .home-info {
