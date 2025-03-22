@@ -91,7 +91,6 @@
   background: #ccc;
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
 }
 
 .message {
@@ -109,12 +108,12 @@
 }
 
 .success-message {
-  background: var(--success);
+  background: #28a745;
   color: white;
 }
 
 .error-message {
-  background: var(--error);
+  background: #dc3545;
   color: white;
 }
 
@@ -137,7 +136,6 @@
 
   .submit-btn {
     width: 100%;
-    padding: 1rem 2rem;
   }
 
   .message {
