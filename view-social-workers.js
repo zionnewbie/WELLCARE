@@ -30,11 +30,28 @@ class SocialWorkersView {
 
   async loadSocialWorkers() {
     try {
+      const token = localStorage.getItem("adminToken");
+      if (!token) {
+        this.showNotification("Please login again to continue", "error");
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        window.location.href = "admin.html";
+        return;
+      }
+
       const response = await fetch(`${API_URL}/social-workers`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
+
+      if (response.status === 401) {
+        localStorage.removeItem("adminToken");
+        this.showNotification("Session expired. Please login again", "error");
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        window.location.href = "admin.html";
+        return;
+      }
 
       if (!response.ok) {
         throw new Error("Failed to fetch social workers");
@@ -44,7 +61,12 @@ class SocialWorkersView {
       this.renderSocialWorkers(socialWorkers);
     } catch (error) {
       console.error("Error loading social workers:", error);
-      this.showNotification("Failed to load social workers", "error");
+      this.showNotification(
+        "Failed to load social workers. Please try again",
+        "error"
+      );
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      this.loadSocialWorkers();
     }
   }
 
@@ -53,6 +75,7 @@ class SocialWorkersView {
 
     socialWorkers.forEach((worker) => {
       const row = document.createElement("tr");
+      row.setAttribute("data-worker-id", worker.workerId);
       const lastActive = new Date(
         worker.lastActive || Date.now()
       ).toLocaleString();
@@ -62,7 +85,6 @@ class SocialWorkersView {
         <td>${this.escapeHtml(worker.workerId)}</td>
         <td>${this.escapeHtml(worker.name)}</td>
         <td>${this.escapeHtml(worker.email)}</td>
-        <td><span class="status-badge ${status.toLowerCase()}">${status}</span></td>
         <td>${lastActive}</td>
         <td>
           <button class="action-btn view-btn" data-id="${worker.workerId}">
@@ -158,6 +180,7 @@ class SocialWorkersView {
           method: "POST",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+            "Content-Type": "application/json",
           },
         }
       );
@@ -166,7 +189,43 @@ class SocialWorkersView {
         throw new Error(`Failed to ${action} account`);
       }
 
-      await this.loadSocialWorkers();
+      // Get the updated status from the server response
+      const updatedWorker = await response.json();
+      worker.isActive = updatedWorker.isActive;
+
+      // Update the UI immediately
+      const row = this.tableBody.querySelector(
+        `tr[data-worker-id="${worker.workerId}"]`
+      );
+      if (row) {
+        const statusCell = row.querySelector("td:nth-child(4)");
+        const status = updatedWorker.isActive ? "Active" : "Inactive";
+        statusCell.innerHTML = `<span class="status-badge ${status.toLowerCase()}">${status}</span>`;
+
+        // Update the toggle button
+        const toggleBtn = row.querySelector(".activate-btn, .deactivate-btn");
+        toggleBtn.className = `action-btn ${
+          updatedWorker.isActive ? "deactivate" : "activate"
+        }-btn`;
+        toggleBtn.innerHTML = `<i class="fas fa-${
+          updatedWorker.isActive ? "user-slash" : "user-check"
+        }"></i>`;
+      }
+      if (row) {
+        const statusCell = row.querySelector("td:nth-child(4)");
+        const status = worker.isActive ? "Active" : "Inactive";
+        statusCell.innerHTML = `<span class="status-badge ${status.toLowerCase()}">${status}</span>`;
+
+        // Update the toggle button
+        const toggleBtn = row.querySelector(".activate-btn, .deactivate-btn");
+        toggleBtn.className = `action-btn ${
+          worker.isActive ? "deactivate" : "activate"
+        }-btn`;
+        toggleBtn.innerHTML = `<i class="fas fa-${
+          worker.isActive ? "user-slash" : "user-check"
+        }"></i>`;
+      }
+
       this.showNotification(
         `Social worker account ${action}d successfully`,
         "success"
@@ -174,6 +233,8 @@ class SocialWorkersView {
     } catch (error) {
       console.error(`Error ${action}ing account:`, error);
       this.showNotification(`Failed to ${action} account`, "error");
+      // Refresh the list to ensure consistency
+      await this.loadSocialWorkers();
     }
   }
 
