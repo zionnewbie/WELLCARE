@@ -14,31 +14,13 @@ class AdminViewer {
   }
 
   initializeEventListeners() {
-    this.refreshBtn.addEventListener("click", () => {
-      this.refreshBtn.classList.add("loading");
-      this.loadAdmins().finally(() => {
-        this.refreshBtn.classList.remove("loading");
-      });
-    });
-    
+    this.refreshBtn.addEventListener("click", () => this.loadAdmins());
     this.closeModalBtn.addEventListener("click", () => this.closeModal());
     this.cancelEditBtn.addEventListener("click", () => this.closeModal());
     this.editForm.addEventListener("submit", (e) => this.handleEditSubmit(e));
-    
     window.addEventListener("click", (e) => {
       if (e.target === this.editModal) this.closeModal();
     });
-  }
-
-  showNotification(message, type = "success") {
-    const notification = document.createElement("div");
-    notification.className = `notification ${type}`;
-    notification.innerHTML = `
-      <i class="fas ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}"></i>
-      ${message}
-    `;
-    document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 3000);
   }
 
   openModal(admin) {
