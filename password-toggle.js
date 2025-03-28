@@ -1,6 +1,6 @@
 function togglePasswordVisibility(inputId) {
   const input = document.getElementById(inputId);
-  const button = input.parentElement.querySelector(".password-toggle");
+  const button = input.parentElement.querySelector(".toggle-password");
   const icon = button.querySelector("i");
 
   if (input.type === "password") {
