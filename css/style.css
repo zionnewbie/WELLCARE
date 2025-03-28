@@ -3,18 +3,32 @@
   /* Colors - Modern palette */
   --primary-color: #3b82f6;
   --primary-dark: #2563eb;
+  --primary-light: #60a5fa;
   --secondary-color: #1e293b;
+  --secondary-dark: #0f172a;
+  --secondary-light: #334155;
   --accent-color: #f59e0b;
+  --accent-dark: #d97706;
+  --accent-light: #fbbf24;
   --success-color: #10b981;
   --success-dark: #059669;
+  --success-light: #34d399;
   --danger-color: #ef4444;
+  --danger-dark: #dc2626;
+  --danger-light: #f87171;
   --warning-color: #f59e0b;
+  --warning-dark: #d97706;
+  --warning-light: #fbbf24;
   --text-color: #1e293b;
   --text-light: #64748b;
+  --text-lighter: #94a3b8;
   --bg-color: #f8fafc;
   --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
   --white: #ffffff;
   --border-color: #e2e8f0;
+  --border-color-dark: #cbd5e1;
+  --border-color-light: #f1f5f9;
   --hover-bg: #f1f5f9;
 
   /* Typography Scale - Using Modern Type Scale */
@@ -160,15 +174,19 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
-  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
   border-radius: var(--border-radius-sm);
   transition: var(--transition-fast);
   cursor: pointer;
   border: none;
-  gap: 0.5rem;
+  gap: 0.75rem;
   transform-origin: center;
   will-change: transform, box-shadow;
+  font-size: var(--text-sm);
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .button-primary {
@@ -178,24 +196,77 @@ body {
 
 .button-primary:hover {
   background: var(--primary-dark);
-  transform: translateY(-1px) scale(1.02);
+  transform: translateY(-1px);
   box-shadow: var(--shadow-md);
+}
+
+.button-primary:active {
+  background: var(--primary-dark);
+  transform: translateY(1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.button-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-color);
+}
+
+.button-secondary:hover {
+  background: var(--bg-tertiary);
+  color: var(--primary-color);
+}
+
+.button-secondary:active {
+  background: var(--border-color);
+  transform: translateY(1px);
+}
+
+@media (hover: none) {
+  .button {
+    padding: 0.875rem 1.5rem;
+  }
+
+  .button:hover {
+    transform: none !important;
+  }
+
+  .button:active {
+    transform: scale(0.98) !important;
+  }
 }
 
 /* Modern Form Styles */
 .input {
   width: 100%;
-  padding: 0.625rem 0.75rem;
+  padding: 0.75rem 1rem;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-sm);
   transition: var(--transition-fast);
-  font-size: 0.875rem;
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--white);
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input:disabled {
+  background-color: var(--bg-secondary);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@media (hover: none) {
+  .input {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 0.875rem 1rem;
+  }
 }
 
 /* Modern Card Styles */
@@ -203,14 +274,29 @@ body {
   background: var(--white);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
-  transition: var(--transition-normal);
-  border: 1px solid var(--border-color);
-  will-change: transform, box-shadow;
+  transition: var(--transition-fast);
+  overflow: hidden;
+  border: 1px solid var(--border-color-light);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px) scale(1.01);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-color);
+}
+
+@media (hover: none) {
+  .card {
+    transform: none !important;
+    box-shadow: var(--shadow-sm) !important;
+  }
+
+  .card:active {
+    background: var(--bg-secondary);
+  }
 }
 
 /* Navigation Styles */
@@ -823,10 +909,18 @@ body {
   }
 }
 
-.success-message i { color: var(--success-color); }
-.error-message i { color: var(--danger-color); }
-.info-message i { color: var(--primary-color); }
-.warning-message i { color: var(--warning-color); }
+.success-message i {
+  color: var(--success-color);
+}
+.error-message i {
+  color: var(--danger-color);
+}
+.info-message i {
+  color: var(--primary-color);
+}
+.warning-message i {
+  color: var(--warning-color);
+}
 /* Marker cluster styles */
 .marker-cluster {
   background-color: rgba(var(--primary-rgb), 0.6);
