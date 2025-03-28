@@ -287,11 +287,13 @@ class AdminHomes {
 
     const bounds = L.latLngBounds();
     const homeIcon = L.icon({
-      iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
-      shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-      iconSize: [30, 45],
-      iconAnchor: [15, 45],
-      popupAnchor: [1, -40],
+      iconUrl:
+        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
+      shadowUrl:
+        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
       shadowSize: [41, 41],
     });
 
@@ -300,26 +302,26 @@ class AdminHomes {
         const marker = L.marker([home.lat, home.lng], { icon: homeIcon })
           .bindPopup(`
             <div class="home-popup">
-              <h3 class="popup-title">${home.name || "Unnamed Home"}</h3>
-              <div class="popup-content">
-                ${home.location ? `
-                  <div class="popup-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>${home.location}</span>
-                  </div>` : ''}
-                ${home.contact ? `
-                  <div class="popup-item">
-                    <i class="fas fa-phone"></i>
-                    <span>${home.contact}</span>
-                  </div>` : ''}
-                ${home.description ? `
-                  <div class="popup-item">
-                    <i class="fas fa-info-circle"></i>
-                    <span>${home.description}</span>
-                  </div>` : ''}
-              </div>
-              <button onclick="adminHomes.editHome('${home._id}')" class="popup-btn">
-                <i class="fas fa-edit"></i> Edit Details
+              <h3>${home.name || "Unnamed Home"}</h3>
+              ${
+                home.location
+                  ? `<p><i class="fas fa-map-marker-alt"></i> ${home.location}</p>`
+                  : ""
+              }
+              ${
+                home.contact
+                  ? `<p><i class="fas fa-phone"></i> ${home.contact}</p>`
+                  : ""
+              }
+              ${
+                home.description
+                  ? `<p><i class="fas fa-info-circle"></i> ${home.description}</p>`
+                  : ""
+              }
+              <button onclick="adminHomes.editHome('${
+                home._id
+              }')" class="popup-btn">
+                Edit Details
               </button>
             </div>
           `);
