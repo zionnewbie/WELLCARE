@@ -1,0 +1,205 @@
+:root {
+  --form-bg: rgba(255, 255, 255, 0.15);
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --input-border: rgba(255, 255, 255, 0.2);
+  --input-focus: #4a90e2;
+  --success: #28a745;
+  --error: #dc3545;
+  --white: #ffffff;
+  --black: hwb(244 5% 84% / 0);
+  /* Border Radius - More modern, subtle curves */
+  --border-radius-sm: 0.375rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+  --border-radius-full: 9999px;
+  /* Shadows - Softer, more natural */
+  --shadow-xs: 0 1px 1px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 2px 4px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  /* Enhanced Spacing */
+  --spacing-2xs: 0.25rem;
+  --spacing-3xl: 4rem;
+
+  /* Spacing - Using 4-point grid */
+  --spacing-xs: 0.5rem; /* 8px */
+  --spacing-sm: 1rem; /* 16px */
+  --spacing-md: 1.5rem; /* 24px */
+  --spacing-lg: 2rem; /* 32px */
+  --spacing-xl: 3rem; /* 48px */
+}
+.admin-wrapper {
+  min-height: 100vh;
+}
+
+.add-admin-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: var(--form-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--input-border);
+}
+
+#addAdminForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: var(--spacing-xl);
+  background: var(--white);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 2px solid var(--input-border);
+  border-radius: 12px;
+  background: var(--input-bg);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:hover {
+  border-color: rgba(74, 144, 226, 0.4);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.15);
+  transform: translateY(-2px);
+}
+
+.form-group input:invalid {
+  border-color: var(--error);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  color: white;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #357abd 0%, #2868a0 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.message {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1.2rem 2.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.success-message {
+  background: #28a745;
+  color: white;
+}
+
+.error-message {
+  background: #dc3545;
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .add-admin-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+
+  .message {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+.admin-back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4a90e2;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.admin-back-btn:hover {
+  transform: translateX(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  color: #357abd;
+}

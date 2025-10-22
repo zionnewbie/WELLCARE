@@ -48,7 +48,7 @@ class AdminDashboard {
       password === ADMIN_CREDENTIALS.password
     ) {
       // Generate a simple token for hardcoded admin
-      const token = btoa(`${username}:${new Date().getTime()}`);
+      const token = "admin-token-123";
       localStorage.setItem("adminToken", token);
       this.showDashboard();
       await this.loadReports();
