@@ -138,6 +138,6 @@ dist
 *.sqlite3
 
 #my custom ignore
-/Database
+database/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Node,Data,Database
