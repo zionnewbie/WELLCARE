@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welfare Homes Directory</title>
+    <link rel="stylesheet" href="css/homes.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <a href="index.html" class="back-btn" title="Back to Home">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <i class="fas fa-heart"></i>
+        <span>WelfareCare</span>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul>
+        <li>
+          <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        </li>
+        <li>
+          <a href="homes.html" class="active"
+            ><i class="fas fa-building"></i> Homes Directory</a
+          >
+        </li>
+        <li>
+          <a href="index.html#report"><i class="fas fa-file-alt"></i> Report</a>
+        </li>
+        <li>
+          <a href="admin.html"><i class="fas fa-user-shield"></i> Admin</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <header class="page-header">
+        <h1>Welfare Homes Directory</h1>
+        <p>Find and connect with welfare homes in your community</p>
+      </header>
+
+      <section class="search-section">
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by name or location..."
+          />
+          <i class="fas fa-search"></i>
+        </div>
+        <div class="filter-box">
+          <select id="sortSelect">
+            <option value="name">Sort by Name</option>
+            <option value="location">Sort by Location</option>
+          </select>
+          <i class="fas fa-sort"></i>
+        </div>
+      </section>
+
+      <section id="homesGrid" class="homes-grid">
+        <!-- Homes will be loaded here -->
+      </section>
+
+      <div id="loadingIndicator" class="loading hidden">
+        <i class="fas fa-spinner fa-spin"></i>
+        <span>Loading homes...</span>
+      </div>
+
+      <div id="map" class="map-container"></div>
+    </main>
+
+    <!-- Replace Google Maps script with these in the head section -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="homes.js"></script>
+  </body>
+</html>

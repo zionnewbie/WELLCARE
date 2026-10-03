@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social Worker Login</title>
+    <link rel="stylesheet" href="css/social-worker-login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container login-container">
+      <div class="login-card">
+        <div class="login-header">
+          <img src="asset/logo.png" alt="Logo" class="login-logo" />
+          <h1>Social Worker Login</h1>
+        </div>
+        <form id="loginForm" class="login-form">
+          <div class="form-group">
+            <label for="workerId">Worker ID</label>
+            <div class="input-group">
+              <i class="fas fa-id-card"></i>
+              <input
+                type="text"
+                id="workerId"
+                name="workerId"
+                required
+                placeholder="Enter your Worker ID"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                onclick="togglePassword('password')"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="login-btn">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+        </form>
+        <div id="notification" class="notification" style="display: none"></div>
+      </div>
+    </div>
+    <script src="password-toggle.js"></script>
+    <script src="social-worker-login.js"></script>
+  </body>
+</html>
