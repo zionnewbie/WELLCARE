@@ -137,4 +137,7 @@ dist
 *.pdb
 *.sqlite3
 
+#my custom ignore
+/Database
+
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Node,Data,Database
