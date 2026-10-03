@@ -139,5 +139,6 @@ dist
 
 #my custom ignore
 database/
+uploads/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Node,Data,Database
