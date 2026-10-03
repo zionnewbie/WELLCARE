@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Welfare Home</title>
+    <link rel="stylesheet" href="css/edit-home.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="dashboard-nav">
+      <div class="nav-brand">
+        <a
+          href="admin-homes.html"
+          class="back-btn"
+          title="Back to Homes Dashboard"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <i class="fas fa-heart"></i>
+        <span>WelfareCare</span>
+      </div>
+      <div class="nav-links">
+        <button id="refreshBtn" title="Refresh">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+      </div>
+    </nav>
+
+    <main class="dashboard-content">
+      <div class="edit-home-container">
+        <header class="page-header">
+          <h1>Edit Welfare Home</h1>
+          <p>Update welfare home information and location</p>
+        </header>
+
+        <div class="edit-home-grid">
+          <div class="form-section">
+            <form id="editHomeForm" class="edit-home-form">
+              <div class="form-group">
+                <label for="name">Home Name*</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="Enter welfare home name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  rows="4"
+                  placeholder="Enter description of the welfare home"
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="contact">Contact Number</label>
+                <input
+                  type="tel"
+                  id="contact"
+                  name="contact"
+                  placeholder="Enter contact number"
+                />
+              </div>
+
+              <div class="location-section">
+                <h2>Location Details</h2>
+                <div class="form-group">
+                  <label for="location">Address*</label>
+                  <div class="location-input-group">
+                    <input
+                      type="text"
+                      id="location"
+                      name="location"
+                      required
+                      placeholder="Search for an address..."
+                      class="location-input"
+                    />
+                    <button
+                      type="button"
+                      id="fetchLocationBtn"
+                      class="fetch-location-btn"
+                      title="Get current location"
+                    >
+                      <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="coordinates-section">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="latitude">Latitude*</label>
+                      <div class="coordinate-input-group">
+                        <input
+                          type="number"
+                          id="latitude"
+                          name="latitude"
+                          step="0.000001"
+                          required
+                          placeholder="e.g., 13.0827"
+                          class="coordinate-input"
+                        />
+                        <span class="coordinate-unit">°N</span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="longitude">Longitude*</label>
+                      <div class="coordinate-input-group">
+                        <input
+                          type="number"
+                          id="longitude"
+                          name="longitude"
+                          step="0.000001"
+                          required
+                          placeholder="e.g., 80.2707"
+                          class="coordinate-input"
+                        />
+                        <span class="coordinate-unit">°E</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="status-section">
+                <h2>Status Information</h2>
+                <div class="form-group">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="verified" name="verified" />
+                    <span>Mark as Verified</span>
+                    <i class="fas fa-check-circle"></i>
+                  </label>
+                  <div id="verifiedStatus" class="verified-status not-verified">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Not verified</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="status">Status</label>
+                  <select id="status" name="status">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="pending">Pending Verification</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button
+                  type="button"
+                  onclick="window.location.href='admin-homes.html'"
+                  class="cancel-btn"
+                >
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+                <button type="submit" class="submit-btn">
+                  <i class="fas fa-save"></i> Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="map-section">
+            <div class="map-header">
+              <h2>Select Location on Map</h2>
+              <p class="map-helper-text">
+                Click on the map to set location or drag the marker to adjust
+              </p>
+            </div>
+            <div id="map" class="map-container"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="edit-home.js"></script>
+  </body>
+</html>

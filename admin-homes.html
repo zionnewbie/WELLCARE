@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Homes Dashboard</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="admin-wrapper">
+      <nav class="dashboard-nav">
+        <div class="nav-brand">
+          <a href="admin.html" class="back-btn" title="Back to Admin Dashboard">
+            <i class="fas fa-arrow-left"></i>
+          </a>
+          <i class="fas fa-shield-alt"></i>
+          <span>Homes Management</span>
+        </div>
+        <div class="nav-links">
+          <button id="viewModeBtn" title="Toggle View Mode">
+            <i class="fas fa-th-large"></i> View Mode
+          </button>
+          <button id="refreshBtn" title="Refresh Data">
+            <i class="fas fa-sync-alt"></i> Refresh
+          </button>
+          <button id="logoutBtn" title="Logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </nav>
+
+      <div class="dashboard-content">
+        <div class="dashboard-header">
+          <div class="header-left">
+            <h2>Homes Dashboard</h2>
+            <div class="view-toggles">
+              <button class="view-toggle active" data-view="grid">
+                <i class="fas fa-th-large"></i> Grid
+              </button>
+              <button class="view-toggle" data-view="map">
+                <i class="fas fa-map"></i> Map
+              </button>
+              <button class="view-toggle" data-view="table">
+                <i class="fas fa-table"></i> Table
+              </button>
+            </div>
+          </div>
+          <div class="controls">
+            <div class="search-box">
+              <input
+                type="text"
+                id="searchHomes"
+                placeholder="Search homes..."
+              />
+              <i class="fas fa-search"></i>
+            </div>
+            <select id="sortHomes" class="sort-select">
+              <option value="name">Sort by Name</option>
+              <option value="location">Sort by Location</option>
+              <option value="recent">Sort by Recent</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <i class="fas fa-building"></i>
+            <h3>Total Homes</h3>
+            <p id="totalHomes">0</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Cities Covered</h3>
+            <p id="citiesCovered">0</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-phone"></i>
+            <h3>Active Contacts</h3>
+            <p id="activeContacts">0</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-check-circle"></i>
+            <h3>Verified Homes</h3>
+            <p id="verifiedHomes">0</p>
+          </div>
+        </div>
+
+        <div class="admin-actions">
+          <a href="add-home.html" class="action-btn add-home-btn">
+            <i class="fas fa-plus"></i> Add New Home
+          </a>
+          <button id="exportBtn" class="action-btn export-btn">
+            <i class="fas fa-file-export"></i> Export Data
+          </button>
+          <button id="bulkActionBtn" class="action-btn bulk-btn">
+            <i class="fas fa-tasks"></i> Bulk Actions
+          </button>
+        </div>
+
+        <div class="view-container">
+          <div id="gridView" class="view-section active">
+            <div id="homesGrid" class="homes-admin-grid">
+              <!-- Homes will be loaded here -->
+            </div>
+          </div>
+
+          <div id="mapView" class="view-section">
+            <div id="map" class="map-container">
+              <!-- Map will be loaded here -->
+            </div>
+          </div>
+
+          <div id="tableView" class="view-section">
+            <table id="homesTable" class="homes-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Location</th>
+                  <th>Contact</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table data will be loaded here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="admin-homes.js"></script>
+  </body>
+</html>
